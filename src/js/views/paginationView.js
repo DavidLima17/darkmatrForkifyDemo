@@ -5,6 +5,7 @@ import icons from 'url:../../img/icons.svg'; // Parcel 2
  * Represents a pagination view.
  * @class
  * @extends View
+ * @TODO Add ability to see number of pages between prev and next buttons.
  */
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');

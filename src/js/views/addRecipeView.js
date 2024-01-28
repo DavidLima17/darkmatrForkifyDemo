@@ -4,6 +4,8 @@ import View from './View.js';
  * Represents a view for adding a recipe.
  * @class
  * @extends View
+ * @TODO Add input validation
+ * @TODO Improve ingrident input - allow more than 6 ingredients
  */
 class AddRecipeView extends View {
   _parentElement = document.querySelector('.upload');

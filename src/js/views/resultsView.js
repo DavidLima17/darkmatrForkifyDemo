@@ -5,6 +5,8 @@ import PreviewView from './previewView.js';
  * Represents a view for displaying search results.
  * @class
  * @extends View
+ * @TODO Add ability to sort search results by duration
+ * @TODO Add ability to sort search by number of ingredients.
  */
 class ResultsView extends View {
   _parentElement = document.querySelector('.results');

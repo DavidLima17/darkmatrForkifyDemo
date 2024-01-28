@@ -1,5 +1,5 @@
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
-import { AJAX } from './helpers.js';
+import { AJAX, deleteJSON } from './helpers.js';
 
 /**
  * Represents the application state.
@@ -199,12 +199,29 @@ export const uploadRecipe = async function (newRecipe) {
       servings: +newRecipe.servings,
       ingredients,
     };
-    console.log(recipe);
 
     const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
 
     state.recipe = createRecipeObject(data);
     addBookmark(state.recipe);
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * Deletes a recipe.
+ * @param {string} id - The ID of the recipe to delete.
+ */
+export const deleteRecipe = async function (id) {
+  try {
+    const res = await deleteJSON(`${API_URL}${id}?key=${KEY}`);
+
+    if (res !== -1) {
+      throw new Error('Could not delete recipe!');
+    }
+
+    removeBookmark(id);
   } catch (error) {
     throw error;
   }

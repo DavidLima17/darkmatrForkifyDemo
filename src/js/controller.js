@@ -1,6 +1,9 @@
 /**
  * Controller module that handles the application logic and user interactions.
  * @module controller
+ * @TODO Shopping list feature
+ * @TODO Weekly meal planning feature
+ * @TODO Get nutrition data from https://spoonacular.com/food-api
  */
 
 import * as model from './model.js';
@@ -137,6 +140,19 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+const controlDeleteRecipes = async function () {
+  try {
+    await model.deleteRecipe(model.state.recipe.id);
+
+    window.history.pushState(null, '', '/');
+    window.location.reload();
+
+    bookmarksView.render(model.state.bookmarks);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /**
  * Function that initializes the application.
  */
@@ -145,6 +161,7 @@ const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
+  recipeView.addHandlerDeleteRecipe(controlDeleteRecipes);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);

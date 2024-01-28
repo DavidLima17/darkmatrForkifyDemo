@@ -44,8 +44,8 @@ export const AJAX = async function (url, uploadData = undefined) {
 /**
  * Deletes JSON data from the specified URL.
  * @param {string} url - The URL to send the DELETE request to.
- * @returns {Promise<Object>} - A promise that resolves to the deleted data.
- * @throws {Error} - If an error occurs during the deletion process.
+ * @returns {Promise<number>} - A promise that resolves to -1 if the request is successful.
+ * @throws {Error} - If there is an error during the request.
  */
 export const deleteJSON = async function (url) {
   try {
@@ -56,11 +56,10 @@ export const deleteJSON = async function (url) {
       },
     });
 
-    const res = await fetchPro;
-    const data = await res.json();
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
 
     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-    return data;
+    return -1;
   } catch (error) {
     throw error;
   }

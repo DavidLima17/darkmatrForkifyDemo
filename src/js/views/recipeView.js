@@ -45,6 +45,19 @@ class RecipeView extends View {
     });
   }
 
+  addHandlerDeleteRecipe(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.delete');
+      if (!btn) return;
+
+      const confirmDelete = confirm(
+        'Are you sure you want to delete this recipe?'
+      );
+      if (!confirmDelete) return;
+      handler();
+    });
+  }
+
   /**
    * Generates the markup for the recipe view.
    * @returns {string} The generated markup.
@@ -107,6 +120,11 @@ class RecipeView extends View {
           <use href="${icons}#icon-bookmark${
       this._data.bookmarked ? '-fill' : ''
     }"></use>
+        </svg>
+      </button>
+      <button class="btn--round delete ${this._data.key ? '' : 'hidden'}">
+        <svg class="">
+          <use href="${icons}#icon-alert-circle"></use>
         </svg>
       </button>
     </div>
